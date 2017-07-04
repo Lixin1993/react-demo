@@ -51,3 +51,34 @@ export const starActionTableSuccess = (json) =>　{
   return   { type: 'starActionTableSuccess', response:  json  }
 
 };
+
+export const deleteRow = (index) => {
+  return {
+    type: 'deleteRow',
+    deleteIndex: index
+  }
+};
+
+export const modifyTableInfo = (formData) => {
+  return {
+    type: 'modifyInfo',
+    formData
+  }
+};
+
+//定义weather actions
+export const starActionWeather = () =>　{
+  return  {
+    type: 'starActionWeather'
+  }
+};
+
+export const starActionWeatherFault = () =>　{
+  return { type: 'starActionWeatherFault', error: 'Oops' }
+
+};
+
+export const starActionWeatherSuccess = (json) =>　{
+  return   { type: 'starActionWeatherSuccess', response:  json  }
+
+};

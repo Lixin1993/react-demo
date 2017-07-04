@@ -14,7 +14,7 @@ class MainPage extends React.Component {
     collapsed: false,
     mode: 'inline',
     current: '1',
-    openKeys: []
+    openKeys: ['sub1']
   };
   onCollapse = () => {
     this.setState({
@@ -67,13 +67,11 @@ class MainPage extends React.Component {
             </SubMenu>
             <SubMenu key="sub2" title={<span><Icon type="appstore" /><span className="nav-text">ant design</span></span>}>
               <Menu.Item key="5"><Link to="/table">antd table</Link></Menu.Item>
-              <Menu.Item key="6">Option 6</Menu.Item>
+              <Menu.Item key="6"><Link to="/weather">antd weather</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub4" title={<span><Icon type="setting" /><span className="nav-text">Navigation Three</span></span>}>
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
-              <Menu.Item key="11">Option 11</Menu.Item>
-              <Menu.Item key="12">Option 12</Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>

@@ -1,0 +1,15 @@
+.custom-image img {
+  display: block;
+  height: 30vh;
+}
+.custom-card {
+  padding: 10px 16px;
+  position: absolute;
+  top: 15vh;
+}
+
+.weather-city {
+  position: absolute;
+  top: 2vh;
+  right: 2vw;
+}

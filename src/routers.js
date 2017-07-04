@@ -17,6 +17,7 @@ import Bar from './containers/echarts/bar/bar'
 import Map from './containers/echarts/map/map'
 
 import AntdTable from './containers/antd/table/table'
+import Weather from './containers/antd/weather/weather'
 
 const logger = createLogger();
 
@@ -41,7 +42,7 @@ const RoutePages = () => {
           <Route path="/map" component={Map} />
 
           <Route path="/table" component={AntdTable} />
-
+          <Route path="/weather" component={Weather} />
 
         </Route>
 

@@ -1,7 +1,7 @@
 /**
  * Created by U on 2017-06-23.
  */
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
 //柱图reducer
 const reducerBar = (state = {isFetching: null, didInvalidate: null, responseBar: null}, action) => {
@@ -37,18 +37,48 @@ const reducerMap = (state = {isFetching: null, didInvalidate: null, responseMap:
   }
 };
 
-//地图reducer
-const reducerTable = (state = {isFetching: null, didInvalidate: null, responseTable: null}, action) => {
+//列表reducer
+const reducerTable = (state = {isFetching: null, didInvalidate: null, responseTable: []}, action) => {
+  let newState = {};
   switch (action.type) {
-    case 'starActionTable':
-      state.isFetching = true;
-      return  Object.assign({}, state, state.isFetching);
-    case 'starActionTableFault':
-      state.didInvalidate = true;
-      return  Object.assign({}, state, state.didInvalidate);
-    case 'starActionTableSuccess':
-      state.responseTable = action.response;
-      return  state;
+    case 'starActionTable':   //开始抓取数据
+      newState.isFetching = true;
+      return  Object.assign({}, state, newState);
+    case 'starActionTableFault':  //请求出错
+      newState.didInvalidate = true;
+      return  Object.assign({}, state, newState);
+    case 'starActionTableSuccess': //请求成功
+      newState.responseTable = action.response;
+      return  Object.assign({}, state, newState);
+    case 'deleteRow':  //删除单元行操作
+      newState = Object.assign({}, state);
+      newState.responseTable.splice(action.deleteIndex, 1);
+      return  newState;
+    case 'modifyInfo':
+      newState = Object.assign({}, state);
+      newState.responseTable.map((data, index) => {
+        if(data.key === action.formData.key) {
+          newState.responseTable[index] = action.formData;
+        }
+      });
+      return  newState;
+    default:
+      return state;
+  }
+};
+
+const reducerWeather = (state = {isFetching: null, didInvalidate: null, responseWeather: []}, action) => {
+  let newState = {};
+  switch (action.type) {
+    case 'starActionWeather':   //开始抓取数据
+      newState.isFetching = true;
+      return  Object.assign({}, state, newState);
+    case 'starActionWeatherFault':  //请求出错
+      newState.didInvalidate = true;
+      return  Object.assign({}, state, newState);
+    case 'starActionWeatherSuccess': //请求成功
+      newState.responseWeather = action.response;
+      return  Object.assign({}, state, newState);
     default:
       return state;
   }
@@ -58,7 +88,8 @@ const reducerTable = (state = {isFetching: null, didInvalidate: null, responseTa
 const echartsReducer = combineReducers({
   reducerBar,
   reducerMap,
-  reducerTable
-})
+  reducerTable,
+  reducerWeather
+});
 
 export default echartsReducer
