@@ -34,5 +34,7 @@ export const fetchPostsWeather = url => (dispatch) => {
       if(response.status !== 200) {
         dispatch(actions.starActionWeatherSuccess(weatherData.result))
       }
-    }).catch(error => console.log(error));
+    }).catch(error => {
+      return error;
+    });
 };

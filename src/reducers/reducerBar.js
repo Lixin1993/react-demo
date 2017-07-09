@@ -67,7 +67,7 @@ const reducerTable = (state = {isFetching: null, didInvalidate: null, responseTa
   }
 };
 
-const reducerWeather = (state = {isFetching: null, didInvalidate: null, responseWeather: []}, action) => {
+const reducerWeather = (state = {isFetching: null, didInvalidate: null, responseWeather: { today:[] }}, action) => {
   let newState = {};
   switch (action.type) {
     case 'starActionWeather':   //开始抓取数据

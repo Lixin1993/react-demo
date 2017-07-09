@@ -13,3 +13,12 @@
   top: 2vh;
   right: 2vw;
 }
+
+#weather .ant-card {
+  cursor: pointer;
+}
+
+.weatherChart {
+  width: 100%;
+  height: 65vh;
+}
