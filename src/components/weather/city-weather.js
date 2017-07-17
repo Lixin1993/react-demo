@@ -38,7 +38,7 @@ class CityWeather extends React.Component {
     return(
       <div id="weather">
         <Row gutter={24}>
-          <Col span={4}>
+          <Col span={6}>
             <Card bodyStyle={{ padding: 0 }} onClick={ this.onModal }>
               <div className="custom-image">
                 <img alt="example" width="100%" src={weather_img} />

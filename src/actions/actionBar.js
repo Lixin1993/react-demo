@@ -52,17 +52,25 @@ export const starActionTableSuccess = (json) =>　{
 
 };
 
-export const deleteRow = (index) => {
+export const addRow = (data) => {
   return {
-    type: 'deleteRow',
-    deleteIndex: index
+    type: 'addRow',
+    data
   }
 };
 
-export const modifyTableInfo = (formData) => {
+export const deleteRow = (data) => {
+  return {
+    type: 'deleteRow',
+    data
+  }
+};
+
+export const modifyTableInfo = (formData, mothed) => {
   return {
     type: 'modifyInfo',
-    formData
+    formData,
+    mothed
   }
 };
 

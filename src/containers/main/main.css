@@ -32,3 +32,24 @@
 #app .ant-layout-sider-collapsed .nav-text {
   display: none;
 }
+
+/*modal居中*/
+.ant-modal-wrap {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ant-modal-wrap:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.ant-modal-wrap .ant-modal {
+  display: inline-block;
+  vertical-align: middle;
+  top: 0;
+  text-align: left;
+}

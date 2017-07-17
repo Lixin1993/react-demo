@@ -11,9 +11,6 @@ class WeatherModal extends React.Component {
   componentDidUpdate() {
     const option = () => {
       return {
-        title: {
-          text: '未来一周气温变化'
-        },
         tooltip: {
           trigger: 'axis'
         },
@@ -95,6 +92,7 @@ class WeatherModal extends React.Component {
         footer={ null }
         visible={visible}
         onCancel={onCancel}
+        maskClosable={false}
         >
         <div ref="weatherCharts" className="weatherChart" />
       </Modal>

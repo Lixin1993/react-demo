@@ -52,15 +52,22 @@ const reducerTable = (state = {isFetching: null, didInvalidate: null, responseTa
       return  Object.assign({}, state, newState);
     case 'deleteRow':  //删除单元行操作
       newState = Object.assign({}, state);
-      newState.responseTable.splice(action.deleteIndex, 1);
+      newState.responseTable = action.data
       return  newState;
     case 'modifyInfo':
       newState = Object.assign({}, state);
-      newState.responseTable.map((data, index) => {
-        if(data.key === action.formData.key) {
-          newState.responseTable[index] = action.formData;
-        }
-      });
+      if(action.formData.add) { //判断是否是新增数据
+        const formData = action.formData;
+        formData.key = newState.responseTable.length +　1; //添加key属性,值为数组的长度加1
+        delete formData.add;
+        newState.responseTable.push(formData);
+      }else {
+        newState.responseTable.map((data, index) => {  //如果是修改数据的话，找到相容的key讲数据替换掉
+          if(data.key === action.formData.key) {
+            newState.responseTable[index] = action.formData;
+          }
+        });
+      }
       return  newState;
     default:
       return state;

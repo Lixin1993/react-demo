@@ -6,12 +6,26 @@ import './antd-table.css'
 const FormItem = Form.Item;
 
 
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 14 }
+  }
+};
+
 const TableModal = Form.create()(
   (props) => {
     const { visible, offModal, onModify, form, modalInfo } = props;
     const { getFieldDecorator, getFieldsValue } = form;
     const onSave = () =>{
       const formData = getFieldsValue();
+      if(modalInfo.add){
+        formData.add = true;
+      }
       const Data = Object.assign({}, modalInfo, formData);
       onModify(Data);
     };
@@ -22,17 +36,17 @@ const TableModal = Form.create()(
         onCancel={offModal}
         onOk={onSave}
         >
-        <Form layout="vertical">
-          <FormItem label="姓名">
+        <Form>
+          <FormItem label="姓名" {...formItemLayout}>
             {getFieldDecorator('name', {initialValue: modalInfo.name})(<Input />)}
           </FormItem>
-          <FormItem label="年龄">
+          <FormItem label="年龄" {...formItemLayout}>
             {getFieldDecorator('age', {initialValue: modalInfo.age})(<Input />)}
           </FormItem>
-          <FormItem label="电话">
+          <FormItem label="电话" {...formItemLayout}>
             {getFieldDecorator('telephone', { initialValue: modalInfo.telephone})(<Input />)}
           </FormItem>
-          <FormItem label="地址">
+          <FormItem label="地址" {...formItemLayout}>
             {getFieldDecorator('address', { initialValue: modalInfo.address})(<Input />)}
           </FormItem>
         </Form>

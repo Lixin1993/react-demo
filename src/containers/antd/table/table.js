@@ -1,20 +1,22 @@
 import { connect } from 'react-redux'
 import AntdTable from '../../../components/antd/antd-table'
 import { fetchPostsTable } from '../../../fetch'
-import { deleteRow } from '../../../actions/actionBar'
+import { deleteRow, addRow } from '../../../actions/actionBar'
 
 
 const mapStateToProps = (state) => {
+    const table = state.reducerTable;
     return {
-        dataSources: state.reducerTable.responseTable
+        dataSources: table.responseTable
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch: dispatch,
+        addRow: data => dispatch(addRow(data)),
         fetchPostsTable: fetchPostsTable,
-        onDelete: index => dispatch(deleteRow(index))
+        tableDelete: data => dispatch(deleteRow(data))
     }
 };
 

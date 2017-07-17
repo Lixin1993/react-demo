@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Popconfirm } from 'antd'
+import { Table, Popconfirm, Button } from 'antd'
 import TableModal from './antd-table-modal'
 import { modifyTableInfo } from '../../actions/actionBar'
 
@@ -24,21 +24,29 @@ class AntdTable extends React.Component {
     onModal = record => {
       this.setState({
         visible: true,
-        modalInfo: record
+        modalInfo: record ? record : { add : true }
       });
+      this.form.resetFields();
     };
 
     offModal = () => {
       this.setState({
         visible: false
       });
+      this.form.resetFields();
     };
 
     saveFormRef = (form) => {
       this.form = form;
     };
 
+    onModify = (formData) =>　{
+      this.props.dispatch(modifyTableInfo(formData));
+      this.setState({visible: false});
+    };
+
     render() {
+      const { dataSources, tableDelete } = this.props;
       //表头字段
       const columns = [{
         title: '姓名',
@@ -65,23 +73,23 @@ class AntdTable extends React.Component {
             <span>
               <a className="ant-dropdown-link" onClick={() => this.onModal(record)}>修改信息</a>
               <span className="ant-divider"/>
-              <Popconfirm title="确定删除该项?" onConfirm={() => this.props.onDelete(index)}>
+              <Popconfirm title="确定删除该项?" onConfirm={() => {dataSources.splice(index, 1); tableDelete(dataSources)}}>
                 <a href="#">删除</a>
               </Popconfirm>
             </span>
           );
         }
       }];
-      const { dataSources,dispatch } = this.props;
       return(
       <div>
+        <Button type="primary" icon="plus" style={{ marginBottom: '3vh' }} onClick={ () => this.onModal() }>添加新用户</Button>
         <Table dataSource={dataSources} columns={columns} loading={this.state.loading}
           pagination={{showTotal: (total, range) => `当前 ${range[0]}-${range[1]} 条, 共 ${total} 条`}} />
         <TableModal
           visible={this.state.visible}
           modalInfo={this.state.modalInfo}
           offModal={this.offModal}
-          onModify={formData => {dispatch(modifyTableInfo(formData)); this.setState({visible: false})}}
+          onModify={this.onModify}
           ref={this.saveFormRef}
           />
       </div>
@@ -92,7 +100,7 @@ class AntdTable extends React.Component {
 AntdTable.propTypes = {
   dispatch: PropTypes.func.isRequired,
   fetchPostsTable: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  tableDelete: PropTypes.func.isRequired,
   dataSources: PropTypes.array.isRequired
 };
 
