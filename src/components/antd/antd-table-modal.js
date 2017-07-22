@@ -32,7 +32,7 @@ const TableModal = Form.create()(
     return (
       <Modal
         visible={visible}
-        title="信息编辑"
+        title= {modalInfo.add ? '新增用户' : '信息编辑'}
         onCancel={offModal}
         onOk={onSave}
         >
@@ -42,6 +42,9 @@ const TableModal = Form.create()(
           </FormItem>
           <FormItem label="年龄" {...formItemLayout}>
             {getFieldDecorator('age', {initialValue: modalInfo.age})(<Input />)}
+          </FormItem>
+          <FormItem label="性别" {...formItemLayout}>
+            {getFieldDecorator('sex', {initialValue: modalInfo.sex})(<Input />)}
           </FormItem>
           <FormItem label="电话" {...formItemLayout}>
             {getFieldDecorator('telephone', { initialValue: modalInfo.telephone})(<Input />)}

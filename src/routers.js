@@ -15,6 +15,7 @@ import MainPage from './containers/main/main'
 //引入子页面
 import Bar from './containers/echarts/bar/bar'
 import Map from './containers/echarts/map/map'
+import EchartsPlugin from './components/echartsPlugin/echartsPlugin'
 
 import AntdTable from './containers/antd/table/table'
 import Weather from './containers/antd/weather/weather'
@@ -36,10 +37,11 @@ const RoutePages = () => {
 
         <Route path="/" component={MainPage}>
 
-          <IndexRoute  component={Bar}/>
+          <IndexRoute component={Bar}/>
 
           <Route path="/bar" component={Bar} />
           <Route path="/map" component={Map} />
+          <Route path="/echartsPlugin" component={EchartsPlugin} />
 
           <Route path="/table" component={AntdTable} />
           <Route path="/weather" component={Weather} />

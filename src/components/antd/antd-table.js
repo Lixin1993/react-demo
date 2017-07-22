@@ -58,6 +58,10 @@ class AntdTable extends React.Component {
         key: 'age',
         sorter: (a, b) => a.age - b.age
       }, {
+        title: '性别',
+        dataIndex: 'sex',
+        key: 'sex'
+      }, {
         title: '电话',
         dataIndex: 'telephone',
         key: 'telephone'

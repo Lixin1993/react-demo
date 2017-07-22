@@ -64,6 +64,7 @@ class MainPage extends React.Component {
             <SubMenu key="sub1" title={<span><Icon type="mail" /><span className="nav-text">echarts</span></span>}>
               <Menu.Item key="1"><Link to="/bar">bar</Link></Menu.Item>
               <Menu.Item key="2"><Link to="/map">map</Link></Menu.Item>
+              <Menu.Item key="3"><Link to="/echartsPlugin">echartsPlugin</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" title={<span><Icon type="appstore" /><span className="nav-text">ant design</span></span>}>
               <Menu.Item key="5"><Link to="/table">antd table</Link></Menu.Item>

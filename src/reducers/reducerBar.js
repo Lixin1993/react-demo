@@ -48,23 +48,28 @@ const reducerTable = (state = {isFetching: null, didInvalidate: null, responseTa
       newState.didInvalidate = true;
       return  Object.assign({}, state, newState);
     case 'starActionTableSuccess': //请求成功
-      newState.responseTable = action.response;
+      if(!localStorage.tableJson) {
+        localStorage.tableJson = JSON.stringify(action.response);
+      }
+      newState.responseTable = JSON.parse(localStorage.tableJson);
       return  Object.assign({}, state, newState);
     case 'deleteRow':  //删除单元行操作
-      newState = Object.assign({}, state);
-      newState.responseTable = action.data
+      localStorage.tableJson = JSON.stringify(action.data);
+      newState.responseTable = JSON.parse(localStorage.tableJson);
       return  newState;
     case 'modifyInfo':
-      newState = Object.assign({}, state);
+      newState.responseTable = JSON.parse(localStorage.tableJson);
       if(action.formData.add) { //判断是否是新增数据
         const formData = action.formData;
         formData.key = newState.responseTable.length +　1; //添加key属性,值为数组的长度加1
         delete formData.add;
         newState.responseTable.push(formData);
+        localStorage.tableJson = JSON.stringify(newState.responseTable);
       }else {
         newState.responseTable.map((data, index) => {  //如果是修改数据的话，找到相容的key讲数据替换掉
           if(data.key === action.formData.key) {
             newState.responseTable[index] = action.formData;
+            localStorage.tableJson = JSON.stringify(newState.responseTable);
           }
         });
       }
