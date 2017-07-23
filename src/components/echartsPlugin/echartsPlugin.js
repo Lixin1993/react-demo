@@ -1,32 +1,48 @@
 import React from 'react'
+import PluginModal from './pluginModal'
 
 const echartType = {
     bar: '柱状图',
     pie: '饼图',
     map: '地图',
     line: '曲线图'
-}
+};
 
 class EchartsPlugin extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { text: '' }
+        this.state = {
+          text: '',
+          visible: false
+        }
     }
+
+    //pluginModal
+    onCancel = () => {
+      this.setState({ visible: false });
+    };
+
+    onOk = () => {
+      this.setState({ visible: true });
+    };
 
     drag = (ev) => {
         ev.dataTransfer.setData('Text',ev.target.id);
-    }
+    };
 
     drop = (ev) => {
         ev.preventDefault();
         const data=ev.dataTransfer.getData('Text');
-        this.setState({ text: echartType[data] });
-    }
+        this.setState({
+          text: echartType[data],
+          visible: true
+        });
+    };
 
     allowDrop = (ev) => {
         ev.preventDefault();
-    }
+    };
 
     render() {
         const boxStyle = {
@@ -34,7 +50,7 @@ class EchartsPlugin extends React.Component {
             width: '30vw',
             border: '1px solid #ccc',
             marginTop: '5vh'
-        }
+        };
         return (
             <div>
                 <div
@@ -69,7 +85,14 @@ class EchartsPlugin extends React.Component {
                 >
                     echartsBar
                 </div>
+
                 <div style={boxStyle} onDrop={this.drop} onDragOver={this.allowDrop} > {this.state.text} </div>
+                <PluginModal
+                  onOk={this.onOk}
+                  onCancel={this.onCancel}
+                  visible={this.state.visible}
+                  type={this.state.text}
+                  />
             </div>
         );
     }
