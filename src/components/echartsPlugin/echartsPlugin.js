@@ -1,19 +1,16 @@
 import React from 'react'
+import echarts from 'echarts'
 import PluginModal from './pluginModal'
+import optionFun from './echartsOptions'
 
-const echartType = {
-    bar: '柱状图',
-    pie: '饼图',
-    map: '地图',
-    line: '曲线图'
-};
+let echartsComponent = {}; //echarts 实例对象
 
 class EchartsPlugin extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-          text: '',
+          type: '',
           visible: false
         }
     }
@@ -24,7 +21,13 @@ class EchartsPlugin extends React.Component {
     };
 
     onOk = () => {
-      this.setState({ visible: true });
+      this.setState({ visible: false });
+      //销毁上一个实例对象
+      if(echartsComponent){
+        echarts.dispose(echartsComponent);
+      }
+      echartsComponent = echarts.init(this.refs.echarts);
+      echartsComponent.setOption(optionFun(this.state.type));
     };
 
     drag = (ev) => {
@@ -33,9 +36,9 @@ class EchartsPlugin extends React.Component {
 
     drop = (ev) => {
         ev.preventDefault();
-        const data=ev.dataTransfer.getData('Text');
+        const data = ev.dataTransfer.getData('Text');
         this.setState({
-          text: echartType[data],
+          type: data,
           visible: true
         });
     };
@@ -46,21 +49,13 @@ class EchartsPlugin extends React.Component {
 
     render() {
         const boxStyle = {
-            height: '30vh',
-            width: '30vw',
+            height: '60vh',
+            width: '100%',
             border: '1px solid #ccc',
             marginTop: '5vh'
         };
         return (
             <div>
-                <div
-                    style={{ padding: 5, border: '1px solid #ccc', display: 'inline-block', marginRight: '3vw' }}
-                    id='map'
-                    draggable={true}
-                    onDragStart={this.drag}
-                >
-                    echartsMap
-                </div>
                 <div
                     style={{ padding: 5, border: '1px solid #ccc', display: 'inline-block', marginRight: '3vw' }}
                     id='pie'
@@ -86,12 +81,12 @@ class EchartsPlugin extends React.Component {
                     echartsBar
                 </div>
 
-                <div style={boxStyle} onDrop={this.drop} onDragOver={this.allowDrop} > {this.state.text} </div>
+                <div style={boxStyle} onDrop={this.drop} onDragOver={this.allowDrop} ref='echarts' />
                 <PluginModal
                   onOk={this.onOk}
                   onCancel={this.onCancel}
                   visible={this.state.visible}
-                  type={this.state.text}
+                  type={this.state.type}
                   />
             </div>
         );

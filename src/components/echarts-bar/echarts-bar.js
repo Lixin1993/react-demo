@@ -81,7 +81,7 @@ class EchartsBar extends React.Component {
 
   render() {
     return (
-      <div style={{ height: '80vh', width: '100%' }} ref="echartsBar" />
+      <div style={{ height: '72vh', width: '100%' }} ref="echartsBar" />
     );
   }
 }
